@@ -14,21 +14,25 @@ import java.util.List;
 
 /**
  * <b>饼状统计图</b>
- * <h2>JerryChartView.java</h2>
+ * <h2>JackChartView.java</h2>
  *
- * @author Jerry VeryEast
+ * @author JackFly
  * @since 2016年3月30日
  */
-public class JerryChartView extends View {
-
-    private static final String TAG = "JerryChartView";
+public class JackChartView extends View {
     private List<ChartData> datas;
     private Context context;
+
+    /**
+     * 非精确模式下，默认宽高。
+     */
+    private int DEFAULT_LENGTH = 200;
 
     /*
      * 默认文本颜色
      */
     private int DEFAULT_TEXTCOLOR = 0xff000000;
+
     /*
      * 默认文本大小
      */
@@ -79,24 +83,24 @@ public class JerryChartView extends View {
 
     private int textColor = DEFAULT_TEXTCOLOR;
 
-    public JerryChartView(Context context) {
+    public JackChartView(Context context) {
         this(context, null);
 
     }
 
-    public JerryChartView(Context context, AttributeSet attrs) {
+    public JackChartView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public JerryChartView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public JackChartView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.JerryChartView);
-        lineColor = a.getColor(R.styleable.JerryChartView_lineColor, lineColor);
-        lineWidth = a.getDimensionPixelOffset(R.styleable.JerryChartView_lineWidth, lineWidth);
-        startAngle = a.getFloat(R.styleable.JerryChartView_startAngle, startAngle);
-        distance = a.getDimensionPixelOffset(R.styleable.JerryChartView_distance, distance);
-        textSize = a.getDimensionPixelSize(R.styleable.JerryChartView_android_textSize, textSize);
-        int cs = a.getInt(R.styleable.JerryChartView_chartStyle, 0);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.JackChartView);
+        lineColor = a.getColor(R.styleable.JackChartView_lineColor, lineColor);
+        lineWidth = a.getDimensionPixelOffset(R.styleable.JackChartView_lineWidth, lineWidth);
+        startAngle = a.getFloat(R.styleable.JackChartView_startAngle, startAngle);
+        distance = a.getDimensionPixelOffset(R.styleable.JackChartView_distance, distance);
+        textSize = a.getDimensionPixelSize(R.styleable.JackChartView_android_textSize, textSize);
+        int cs = a.getInt(R.styleable.JackChartView_chartStyle, 0);
         if (cs == 0) {
             chartStyle = ChartStyle.FANSHAPE;
         } else {
@@ -274,7 +278,6 @@ public class JerryChartView extends View {
                 canvas.drawText(text, textX, textY, textPaint);
             }
 
-            // Log.e(TAG, value + "," + textX + "," + textX + "," + text);
             /**
              * 绘制分割线
              */
@@ -316,13 +319,9 @@ public class JerryChartView extends View {
     private int measureWidth(int measureSpec) {
         int specMode = MeasureSpec.getMode(measureSpec);
         int specSize = MeasureSpec.getSize(measureSpec);
-        // wrap_content
-        if (specMode == MeasureSpec.AT_MOST) {
 
-        }
-        // fill_parent或者精确值
-        else if (specMode == MeasureSpec.EXACTLY) {
-
+        if (specMode != MeasureSpec.EXACTLY) {
+            return DEFAULT_LENGTH;
         }
         return specSize;
     }
@@ -331,13 +330,9 @@ public class JerryChartView extends View {
     private int measureHeight(int measureSpec) {
         int specMode = MeasureSpec.getMode(measureSpec);
         int specSize = MeasureSpec.getSize(measureSpec);
-        // wrap_content
-        if (specMode == MeasureSpec.AT_MOST) {
 
-        }
-        // fill_parent或者精确值
-        else if (specMode == MeasureSpec.EXACTLY) {
-
+        if (specMode != MeasureSpec.EXACTLY) {
+            return DEFAULT_LENGTH;
         }
         return specSize;
     }

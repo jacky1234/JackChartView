@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="JerryChartView">
+    <declare-styleable name="JackChartView">
         <!-- 分割线颜色（应与背景色一致） -->
         <attr name="lineColor" format="reference|color" />
         <!-- 分割线宽度 -->
